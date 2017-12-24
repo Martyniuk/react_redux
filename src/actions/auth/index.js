@@ -22,5 +22,17 @@ export default Object.freeze({
     logoutFail: (message) => ({
         type:    types.LOGOUT_FAIL,
         payload: message
+    }),
+    saveToken: (token) => ({
+        type:    types.SAVE_TOKEN,
+        payload: token
+    }),
+    saveTokenSuccess: (token) => ({
+        type:    types.SAVE_TOKEN_SUCCESS,
+        payload: token
+    }),
+    saveTokenFail: (message) => ({
+        type:    types.SAVE_TOKEN_FAIL,
+        payload: message
     })
 });

@@ -35,6 +35,7 @@ class Routes extends Component {
             history.replace(pages.feed);
         }
     }
+
     componentWillReceiveProps ({
         authenticated,
         initialized,
@@ -50,7 +51,16 @@ class Routes extends Component {
             }
         }
     }
+
     render () {
+
+        /*const okay = {
+            authenticated: true,
+            initialized:   true,
+        };
+
+        // TODO: this props*/
+
         const { authenticated, initialized } = this.props;
 
         return initialized ? (
@@ -68,7 +78,7 @@ class Routes extends Component {
 
 const mapStateToProps = (state) => ({
     initialized:   state.ui.get('initialized'),
-    authenticated: state.auth.get('authenticated')
+    authenticated: state.auth.authState.get('authenticated')
 });
 
 const { login } = authActions;

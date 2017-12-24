@@ -16,8 +16,12 @@ export default Object.freeze({
     }),
     stopFetchingFeed: () => ({
         type: types.STOP_FETCHING_FEED
-    }),
-    startFetchingProfile: () => ({
+    })
+});
+
+
+/*
+*   startFetchingProfile: () => ({
         type: types.START_FETCHING_PROFILE
     }),
     stopFetchingProfile: () => ({
@@ -29,4 +33,6 @@ export default Object.freeze({
     stopEditingProfile: () => ({
         type: types.STOP_EDITING_PROFILE
     })
-});
+*
+*
+* */
