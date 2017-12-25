@@ -7,5 +7,5 @@ import { loginWorker } from './workers/login/';
 export default Object.freeze({
     * loginWatcher () {
         yield takeEvery(types.LOGIN, loginWorker);
-    }
+    },
 });

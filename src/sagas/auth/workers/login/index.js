@@ -9,11 +9,17 @@ import { api } from 'instruments/api';
 export function* loginWorker ({ payload: { email, password, remember } }) {
     try {
         yield put(uiActions.startFetchingAuth());
-        const params = {
-            grant_type: 'password',
-            username:   email,
-            password,
-        };
+        const token = localStorage.getItem('token');
+        const params = token
+            ? {
+                refresh_token: token,
+                grant_type: 'refresh_token',
+            }
+            : {
+                grant_type: 'password',
+                username:   email,
+                password,
+            };
         const body = Object.keys(params).map((key) => {
             return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
         }).join('&');
@@ -22,22 +28,18 @@ export function* loginWorker ({ payload: { email, password, remember } }) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body
+            body,
         });
         const { accessToken, refreshToken, userId, expire, message } = yield call([response, response.json]);
 
         if (remember) {
-            localStorage.setItem('token', accessToken);
-            //console.log(`access token got from localStorage --> ${localStorage.getItem('token')}`);
+            localStorage.setItem('token', refreshToken);
         }
-        //console.log(`data(token that has to come) --> ${JSON.stringify(data)}`);
         if (response.status !== 201) {
-            console.log(`Error --> status is not 200 --- ${response.status}`);
-            //TODO: if token will be outdated --> there should be check on this status and then proper action should be called
             throw new Error(message);
         }
-        yield put(authActions.loginSuccess());
         yield put(authActions.saveTokenSuccess(accessToken));
+        yield put(authActions.loginSuccess());
     } catch ({ message }) {
         yield put(authActions.loginFail(message));
     } finally {

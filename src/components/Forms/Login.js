@@ -12,7 +12,7 @@ import Input from 'components/Input';
 export default class LoginForm extends Component {
     static propTypes = {
         authFetching: bool.isRequired,
-        login:        func.isRequired
+        login:        func.isRequired,
     };
 
     constructor () {
@@ -29,11 +29,11 @@ export default class LoginForm extends Component {
         const { authFetching } = this.props;
 
         const disabledInputStyle = cx({
-            [Styles.disabledInput]: authFetching
+            [Styles.disabledInput]: authFetching,
         });
 
         const buttonStyle = cx(Styles.loginSubmit, {
-            [Styles.disabledButton]: authFetching
+            [Styles.disabledButton]: authFetching,
         });
 
         return (
@@ -53,7 +53,7 @@ export default class LoginForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (email) => !validateEmail(email)
+                        valid: (email) => !validateEmail(email),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.login.email'
@@ -72,7 +72,7 @@ export default class LoginForm extends Component {
                     disabled = { authFetching }
                     disabledstyle = { disabledInputStyle }
                     errors = { {
-                        valid: (password) => validateLength(password, 5)
+                        valid: (password) => validateLength(password, 5),
                     } }
                     errorstyle = { Styles.error }
                     id = 'forms.login.password'
